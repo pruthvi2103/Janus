@@ -49,6 +49,17 @@ func GetAllLinks() []Link{
 
 }
 
+func FindLinkById(id string)  Link{
+	cur,curErr := collection.Find(context.TODO(),bson.M{"shortcode": id})
+	if curErr !=nil{panic(curErr)}
+	defer cur.Close(context.TODO())
+	var link Link
+	if err:=cur.Decode(&link);err != nil {
+		panic(err)
+  }
+  return link
+}
+
 func ListDatabases()  {
 	databases,err:=client.ListDatabaseNames(context.TODO(),bson.M{})
 	if err != nil {
