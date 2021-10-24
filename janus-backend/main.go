@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 func init() {
-	models.ConnectDB(os.Getenv("DB_URL"))
+	models.ConnectDB(fmt.Sprintf("mongodb+srv://%s:%s@%s.rvvj3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",os.Getenv("MONGO_DB_USER"),os.Getenv("MONGO_DB_PASSWORD"),os.Getenv("MONGO_DB_DATABASE")))
 }
 
 func main() {
