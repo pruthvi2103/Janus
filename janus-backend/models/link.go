@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"pruthvi2103/janus/utils"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -15,9 +16,9 @@ var client *mongo.Client
 var collection *mongo.Collection
 
 type Link struct{
-	url string
-	shortcode string
-	clicks int64
+	Url string
+	Shortcode string
+	Clicks int64
 }
 
 func ConnectDB(dbUri string)  {
@@ -49,15 +50,26 @@ func GetAllLinks() []Link{
 
 }
 
-func FindLinkById(id string)  Link{
-	cur,curErr := collection.Find(context.TODO(),bson.M{"shortcode": id})
-	if curErr !=nil{panic(curErr)}
-	defer cur.Close(context.TODO())
-	var link Link
-	if err:=cur.Decode(&link);err != nil {
-		panic(err)
-  }
-  return link
+func FindLinkById(id string)  bson.M{
+	var singleLink bson.M
+	if err := collection.FindOne(context.TODO(),bson.M{"shortcode":id}).Decode(&singleLink); err !=nil{
+	log.Fatal(err)	
+	}
+  return singleLink
+}
+
+func CreateLink(linkData Link) *mongo.InsertOneResult {
+	num:=utils.RandomNumberWithLimit(3,8)
+	shortcode:=utils.String(num)
+	linkResult,err:= collection.InsertOne(context.TODO(),bson.D{
+		{Key: "url",Value: linkData.Url},
+		{Key: "shortcode",Value: shortcode},
+		{Key: "clicks",Value: 0},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	return linkResult
 }
 
 func ListDatabases()  {

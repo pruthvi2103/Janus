@@ -10,13 +10,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 func init() {
-	models.ConnectDB(os.Getenv("DB_URL"))
+	models.ConnectDB(fmt.Sprintf("mongodb+srv://%s:%s@%s.rvvj3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",os.Getenv("MONGO_DB_USER"),os.Getenv("MONGO_DB_PASSWORD"),os.Getenv("MONGO_DB_DATABASE")))
 }
 
 func main() {
 	router:= gin.Default()
 	router.GET("/links", controllers.GetAllLinks)
+	router.POST("/links",controllers.CreateLink)
 	router.GET("/links/:id",controllers.GetLinkById)
+
 	router.Run("localhost:8080")
 	fmt.Println(utils.RandomNumberWithLimit(6,10))
 }
