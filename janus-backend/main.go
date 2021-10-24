@@ -16,7 +16,9 @@ func init() {
 func main() {
 	router:= gin.Default()
 	router.GET("/links", controllers.GetAllLinks)
+	router.POST("/links",controllers.CreateLink)
 	router.GET("/links/:id",controllers.GetLinkById)
+
 	router.Run("localhost:8080")
 	fmt.Println(utils.RandomNumberWithLimit(6,10))
 }
