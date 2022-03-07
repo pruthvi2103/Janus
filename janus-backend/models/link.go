@@ -19,6 +19,10 @@ type Link struct {
 	Shortcode string
 	Clicks    int64
 }
+type LinkResp struct {
+	shortcode string
+	error     string
+}
 
 func ConnectDB(dbUri string) {
 	var err error
@@ -59,7 +63,7 @@ func FindLinkById(id string) bson.M {
 	return singleLink
 }
 
-func CreateLink(linkData Link) string {
+func CreateLink(linkData Link) LinkResp {
 	num := utils.RandomNumberWithLimit(3, 8)
 	shortcode := utils.String(num)
 	linkResult, err := collection.InsertOne(context.TODO(), bson.D{
@@ -71,9 +75,11 @@ func CreateLink(linkData Link) string {
 		log.Fatal(err)
 	}
 	if linkResult != nil {
-		return shortcode
+		insertedLink := LinkResp{shortcode, ""}
+		return insertedLink
 	}
-	return "{error:\"Error Creating document\"}"
+	insertError := LinkResp{shortcode, "{error:\"Error Creating document\"}"}
+	return insertError
 }
 
 func ListDatabases() {
