@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import circle from "./assets/circle.svg";
 import HeroSection from "./components/HeroSection";
 import LinkInput from "./components/LinkInput";
-import { getLinkById } from "./services/linkService";
+import { getAllLinks, getLinkById } from "./services/linkService";
 
 const Container = styled.div`
 	padding: 0 50px;
@@ -33,11 +33,11 @@ const BlurredDiv = styled.img<{
 `;
 
 const App: React.FC = () => {
-	useEffect(async () => {
-		const data = await getLinkById("KKS");
+	// useEffect(async () => {
+	// 	const data = await getAllLinks("/links");
 
-		console.log(data);
-	}, []);
+	// 	console.log(data);
+	// }, []);
 
 	return (
 		<>

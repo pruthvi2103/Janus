@@ -1,3 +1,9 @@
+export interface ITotalLinkData {
+	Url: string;
+	Shortcode: string;
+	Clicks: number;
+}
+
 export interface ILinkData {
 	_id: string;
 	clicks: number;
@@ -7,6 +13,9 @@ export interface ILinkData {
 
 export interface ICreateLinkPayload {
 	url: string;
-	shortcode: string;
-	clicks: number;
+}
+
+export interface IShortenedLinkResponse {
+	Shortcode: string;
+	Error: string;
 }
