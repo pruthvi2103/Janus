@@ -3,8 +3,7 @@ import styled from "styled-components";
 import Navbar from "./components/Navbar";
 import circle from "./assets/circle.svg";
 import HeroSection from "./components/HeroSection";
-import LinkInput from "./components/LinkInput";
-import { getLinkById } from "./services/linkService";
+import LinkInput from "./components/link-input/LinkInput";
 
 const Container = styled.div`
 	padding: 0 50px;
@@ -33,12 +32,6 @@ const BlurredDiv = styled.img<{
 `;
 
 const App: React.FC = () => {
-	useEffect(async () => {
-		const data = await getLinkById("KKS");
-
-		console.log(data);
-	}, []);
-
 	return (
 		<>
 			<Container>

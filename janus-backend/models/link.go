@@ -20,8 +20,8 @@ type Link struct {
 	Clicks    int64
 }
 type LinkResp struct {
-	shortcode string
-	error     string
+	Shortcode string
+	Error     string
 }
 
 func ConnectDB(dbUri string) {

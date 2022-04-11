@@ -1,11 +1,12 @@
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const getHandler = (url: string) => {
 	return fetch(`${BASE_URL}${url}`);
 };
 
-const postHandler = (url: string, payload: Record<string, string>) => {
+const postHandler = (url: string, payload: any) => {
 	return fetch(`${BASE_URL}${url}`, {
+		// url = /link
 		method: "POST", // *GET, POST, PUT, DELETE, etc.
 		mode: "cors", // no-cors, *cors, same-origin
 		cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
