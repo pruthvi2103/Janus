@@ -5,8 +5,8 @@ import {
 	ITotalLinkData,
 	IShortenedLinkResponse,
 } from "./linkService.types";
-const BASE_URL = "http://localhost:8080";
-const LINKS_API_URL = "/links";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const LINKS_API_URL = import.meta.env.VITE_LINKS_API_URL;
 
 export const getAllLinks = async (): Promise<ITotalLinkData> => {
 	const response = await http.get(`${LINKS_API_URL}`);
@@ -19,6 +19,7 @@ export const getLinkById = async (shortcode: string): Promise<ILinkData> => {
 	const jsonData = await response.json();
 	return jsonData;
 };
+
 export const shortenLink = async (
 	payload: ICreateLinkPayload
 ): Promise<IShortenedLinkResponse> => {
